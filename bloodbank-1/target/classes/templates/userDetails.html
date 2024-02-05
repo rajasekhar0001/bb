@@ -217,6 +217,7 @@
                                             <th class="border-top-0">Last Name</th>
                                             <th class="border-top-0">Email</th>
                                             <th class="border-top-0">Blood Group</th>
+                                            <th class="border-top-0">Blood Donation Date</th>
                                             <th class="border-top-0">Gender</th>
                                             <th class="border-top-0">Date Of Birth</th>
                                             <th class="border-top-0">City</th>
@@ -232,6 +233,7 @@
         <td th:text="${user.lastname}">Doe</td>
         <td class="email" th:text="${user.email}">john.doe@example.com</td>
         <td th:text="${user.bloodGroup}">A+</td>
+        <td th:text="${user.dateOfDonation}"></td>
         <td th:text="${user.gender}"></td>
         <td th:text="${user.dateOfBirth}"></td>
         <td th:text="${user.city}">2</td>
@@ -251,6 +253,7 @@
     <tr>
         <td colspan="10" class="action-cell">
             <button class="btn btn-danger btn-clear-expiry" onclick="eligibleToDonate()">Eligible To Donate</button>
+           <!-- <button class="btn btn-danger btn-clear-expiry" onclick="clearExpiry()">Clear Expiry</button>-->
         </td>
     </tr>
 </tfoot>

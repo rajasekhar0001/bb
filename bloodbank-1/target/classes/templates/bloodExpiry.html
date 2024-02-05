@@ -152,6 +152,18 @@
                         <div class="white-box">
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
+									 <thead>
+                                    <!-- ... (your existing table header) ... -->
+                                    
+                                        <tr>
+                                            <th class="border-top-0">S.No</th>
+                                           
+                                            <th class="border-top-0">Blood Group</th>
+                                            <th class="border-top-0">Date of Donation</th>
+                                             <th class="border-top-0">No.of Units</th>
+                                        </tr>
+                                    
+                                </thead>
                                     <thead>
                                         <tr th:each="blood, iterStat : ${blood}">
                             <td th:text="${iterStat.index + 1}"></td>

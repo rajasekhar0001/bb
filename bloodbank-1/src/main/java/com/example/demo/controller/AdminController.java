@@ -234,16 +234,22 @@ public class AdminController {
    	
   @GetMapping("/eligibleToDonate")
   @ResponseStatus(HttpStatus.OK)
-  public String checkEligibility(Model model){
+	@ResponseBody
+  public List<DonorDetails> checkEligibility(){
   List<DonorDetails> donors = donorDetailsService.getDonorDetails();
   System.out.println("ELIBLEEEEEEE");
   List<DonorDetails> data = new ArrayList<>();
   
   data = donorDetailsService.checkEligibility(donors);
-  System.out.println(data.get(0));
-  System.out.println(data.get(1));
-       model.addAttribute("user",data );
-       return "userDetails";
+  
+  
+  for(DonorDetails ya:data) {
+	  System.out.println(ya);
+  }
+// System.out.println(data.get(0));
+// System.out.println(data.get(1));
+ return data;
+       
   }
   
   @PostMapping("/updateDetails")//1
@@ -297,8 +303,9 @@ public class AdminController {
   	
   	@GetMapping("/viewUserDetails")
   	public String viewUserDetails(Model model) {
-  		List<RegistrationDetails> data = new ArrayList<>();
-  		data = registrationDetailsService.getRegistrationDetails();
+  		List<DonorDetails> data = new ArrayList<>();
+  		//data = registrationDetailsService.getRegistrationDetails();
+  		data = donorDetailsService.getDonorsDetails();
   		model.addAttribute("user", data);
   		
   		

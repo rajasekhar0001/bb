@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.emailService.SendEmailService;
 import com.example.demo.entity.DonorDetails;
 import com.example.demo.entity.Inventory;
 import com.example.demo.repository.DonorDetailsRepository;
@@ -22,6 +23,9 @@ public class DonorDetailsService {
 	
 	@Autowired
 	private InventoryService inventoryrepo;
+	
+	@Autowired
+	private SendEmailService emailService;
 	
 	public List<DonorDetails> getDonorDetails(){
 		return repo.findAll();
@@ -55,13 +59,18 @@ public class DonorDetailsService {
         for (DonorDetails donorlist : donors) {
             String donationDate = donorlist.getDateOfDonation();
             long days = findDifference(donationDate, todayDate);
-
-            if (days > 10) {
+            if (days > 90) {
                 String id = donorlist.getEmail();
                 System.out.println(id);
                 //repo.deleteByBloodId(id);
                // deletedItems.add(donorlist);
                 eligible.add(donorlist);
+                String email=donorlist.getEmail();
+                emailService.sendEmail(email,"this is to inform you", "you are now eligible to donate blood,"
+                		+ "Your Lifesaving Oasis, Open Every Hour, Every Day."
+                		+ "Make a blood donation request, and donate according to your convenience");
+                
+                
             }
         }
 
@@ -69,21 +78,37 @@ public class DonorDetailsService {
     }
 
     static long findDifference(String donationDate, String todayDate) {
-        long daysDifference = 0;
-        
+    	long daysDifference = 0;
+
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date1 = sdf.parse(donationDate);
             Date date2 = sdf.parse(todayDate);
+
             long timeDifference = date2.getTime() - date1.getTime();
-            daysDifference = (timeDifference / (1000 * 60 * 60 * 24)) % 365;
+            daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+            // Check for year difference
+            int year1 = Integer.parseInt(new SimpleDateFormat("yyyy").format(date1));
+            int year2 = Integer.parseInt(new SimpleDateFormat("yyyy").format(date2));
+
+            if (year2 > year1) {
+                int daysInYear = isLeapYear(year1) ? 366 : 365; // Adjust for leap year
+                daysDifference += (year2 - year1) * daysInYear;
+            }
+
             System.out.println("The Blood sample is " + daysDifference + " days older.");
         } catch (Exception e) {
             System.out.print(e);
         }
-        
+
         return daysDifference;
     }
+    
+    static boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
 
 	public DonorDetails saveDonorDetails(DonorDetails detail) {
 		return repo.save(detail);

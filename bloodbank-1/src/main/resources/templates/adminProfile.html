@@ -195,86 +195,8 @@ canvas {
                     </div>
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-<!--                    <div class="row mt-3">
-    <div class="col-md-12">
-        <div class="error-message" id="errorMessage">
-            <span class="error-attribute" th:text="${adminUpdate}"></span>
-        </div>
-    </div>
-</div>
 
-<div class="mt-5 text-center">
-     Use a single function that calls both updateProfile and saveProfile 
-    <button class="btn btn-primary profile-button" type="button" onclick="saveAndUpdateProfile()">Save Profile</button>
-</div>
-        -->            
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <div class="row mt-3">
-    <div class="col-md-12">
-                    
-                    <!-- <span class="error-attribute" th:if="${adminUpdate != null and adminUpdate != ''}" th:text="${adminUpdate}"></span>-->
-                     
-                     <div class="error-message" id="errorMessage">
-            <span class="error-attribute" th:text="${adminUpdate}"></span>
-        </div>
-
-</div>
-    </div>
-<<<<<<< HEAD
-
-                     
-                    <div class="mt-5 text-center">
-                       <!-- <button class="btn btn-primary profile-button" type="button" onclick="updateProfile()">Update Profile</button>-->
-                       <button class="btn btn-primary profile-button" type="button" onclick="saveAndUpdateProfile()">Save Profile</button>
-
-                    </div>
-                    
-                    
-                    
-                        
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5"><br><br>
-<!--                     <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br> 
--->                   
-                        <!-- <div class="col-md-12">
-                        <label class="labels" aria-placeholder="blood group">Blood Group</label>
-                        <select class="form-control" name="bloodGroup">
-                           <option value="">None</option> 
-                            <option value="A+">A+</option>
-                          <option value="A-">A-</option>
-                          <option value="B+">B+</option>
-                          <option value="B-">B-</option>
-                          <option value="O+">O+</option>
-                          <option value="O-">O-</option>
-                          <option value="AB+">AB+</option>
-                          <option value="AB-">AB-</option>
-                        </select>
-                      </div><br>-->
-                      
-                      
-                      
-                      <div class="col-md-12" th:each="userDetail : ${user}">
-=======
                         <div class="col-md-12" th:each="userDetail : ${user}">
->>>>>>> 66d235987348a72cf39291d2bc2a83b750c36f83
      <label class="labels" aria-placeholder="blood group">Blood Group</label>
     <select class="form-control" name="bloodGroup">
         <option value="A+" th:selected="${userDetail.bloodGroup == 'A+'}">A+</option>
@@ -326,7 +248,7 @@ canvas {
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
   crossorigin="anonymous"></script>
   
-  <script>
+<!--  <script>
     function saveProfile() {
 
         // Add your logic to handle the save profile functionality
@@ -334,9 +256,10 @@ canvas {
         // For demonstration purposes, I'll toggle the error message visibility
         var errorMessage = document.getElementById('errorMessage');
         errorMessage.style.display = 'block'; // Show the error message
+        alert("Profile Saved!")
     }
-</script>-->
-
+</script>
+-->
 
 <script>
    
@@ -394,10 +317,11 @@ canvas {
        
     
 
-    function saveProfile(event) {
+    function saveProfile() {
         // Assuming that adminUpdate is set on the server side
         var adminUpdateMessage = document.querySelector('.error-attribute').innerText;
 
+alert("Profile Saved!")
         // Display the adminUpdate message
         var errorMessage = document.getElementById('errorMessage');
         errorMessage.style.display = 'block';
@@ -405,19 +329,18 @@ canvas {
 
         // Prevent the default form submission
         event.preventDefault();
+         
 
         console.log('saveProfile function called');
+        
     }
 
-   function saveAndUpdateProfile() {
-    // Call both updateProfile and saveProfile
-    updateProfile();
-    saveProfile(event || window.event);
-}
+
+
 
 
         // Add your logic for saving the profile here
-        alert("Profile Saved!")
+       
    
 
 </script>

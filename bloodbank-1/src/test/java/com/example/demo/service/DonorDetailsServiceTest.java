@@ -45,7 +45,7 @@ public class DonorDetailsServiceTest {
     public void setup() {
         MockitoAnnotations.openMocks(this);
 
-        // Set up common values before each test
+   
         DonorDetails donor1 = new DonorDetails();
         donor1.setEmail("test1@example.com");
         donor1.setDateOfDonation("2022-01-01");
@@ -56,12 +56,12 @@ public class DonorDetailsServiceTest {
         donor2.setDateOfDonation("2022-01-05");
         donor2.setStatus((byte) 1);
 
-        // Create specific lists for different test cases
+       
         List<DonorDetails> allDonors = List.of(donor1, donor2);
         List<DonorDetails> donor1List = List.of(donor1);
         List<DonorDetails> emptyDonorList = Collections.emptyList();
 
-        // Mock repository behavior with more specific responses
+
         when(donorDetailsRepository.findAll()).thenReturn(allDonors);
         when(donorDetailsRepository.findByEmail("test1@example.com")).thenReturn(donor1List);
         when(donorDetailsRepository.findByEmail("test3@example.com")).thenReturn(emptyDonorList); // Test for non-existent email
@@ -71,35 +71,35 @@ public class DonorDetailsServiceTest {
 
     @Test
     public void testGetDonorDetails() {
-        // Act
+
         List<DonorDetails> resultList = donorDetailsService.getDonorDetails();
 
-        // Assert
+
         assertEquals(2, resultList.size());
     }
 
     @Test
     public void testFindByEmail() {
-        // Act
+
         List<DonorDetails> resultList = donorDetailsService.findByemail("test1@example.com");
 
-        // Assert
+
         assertEquals(1, resultList.size());
         assertEquals("test1@example.com", resultList.get(0).getEmail());
     }
 
     @Test
     public void testGetTotalDonationCount() {
-        // Act
+       
         List<DonorDetails> resultList = donorDetailsService.getTotalDonationCount();
 
-        // Assert
+        
         assertEquals(2, resultList.size());
     }
 
     @Test
     public void testCheckEligibility() {
-        // Act
+       
         List<DonorDetails> resultList = donorDetailsService.checkEligibility(new ArrayList<>());
 
         // Assert

@@ -34,40 +34,6 @@ import com.example.demo.service.UserService;
 @AutoConfigureMockMvc
 public class RegistrationDetailsControllerTest {
 	
-//	private MockMvc mockMvc;
-//
-//	@MockBean
-//	private RegistrationDetailsService userService;
-//	
-//	private RegistrationDetails user;
-//
-//	@BeforeEach
-//	public void setup() {
-//		RegistrationDetails user= new RegistrationDetails();
-////		user.setId(1);
-//		user.setFirstname("Test User");
-//		user.setEmail("test@example.com");
-//		user.setPassword("password");
-//		user.setBloodGroup("A+");
-//
-//		user.setLastname("B");
-//    }
-//
-//	@Test
-//	public void registerUserTest() throws Exception {
-//
-//		when(userService.saveRegistrationDetails(any(RegistrationDetails.class))).thenReturn("User registered successfully");
-//		
-//		mockMvc.perform(post("/registerUser")
-//				.contentType(MediaType.APPLICATION_JSON)
-//
-//				.content("{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password\"}"))
-//
-//		.andExpect(status().isOk())
-//		.andExpect(content().string("User registered successfully"));
-//    }
-	
-	
 	
 	@InjectMocks
     private RegistrationDetailsController myController;
@@ -108,5 +74,101 @@ public class RegistrationDetailsControllerTest {
         // Verify that the model attribute is added with the correct value
         Mockito.verify(model, Mockito.never()).addAttribute(Mockito.eq("otpMismatch"), Mockito.anyString());
     }
+    @Test
+    public void testGetDetails() {
+        // Create a mock RegistrationDetails list
+        List<RegistrationDetails> userDetailsList = new ArrayList<>();
+        // Add some dummy data to the list
+        RegistrationDetails user1 = new RegistrationDetails();
+        user1.setEmail("user1@example.com");
+        user1.setFirstname("John");
+        user1.setLastname("Doe");
+        // Add more users as needed
+
+        userDetailsList.add(user1);
+        // Add more users as needed
+
+        // Mock registrationDetailsService behavior
+        when(registrationDetailsService.getRegistrationDetails()).thenReturn(userDetailsList);
+
+        // Call the controller method
+        String viewName = myController.getDetails(model);
+        System.out.println(viewName);
+
+        // Verify that the correct view name is returned
+        assertEquals("details", viewName);
+
+        // Verify interactions
+        Mockito.verify(registrationDetailsService).getRegistrationDetails();
+        // Verify that the model attribute is added with the correct value
+        Mockito.verify(model).addAttribute("users", userDetailsList);
+    }
+
+    @Test
+    public void testFindDetailsByEmail() {
+        // Create a mock RegistrationDetails list
+        List<RegistrationDetails> userDetailsList = new ArrayList<>();
+        // Add some dummy data to the list
+        RegistrationDetails user1 = new RegistrationDetails();
+        user1.setEmail("user1@example.com");
+        user1.setFirstname("John");
+        user1.setLastname("Doe");
+    
+        // Add more users as needed
+
+        userDetailsList.add(user1);
+        // Add more users as needed
+
+        // Mock registrationDetailsService behavior
+        when(registrationDetailsService.getRegistrationDetailsByEmail("user1@example.com")).thenReturn(userDetailsList);
+
+        // Call the controller method
+        List<RegistrationDetails> result = myController.findDetailsByEmail("user1@example.com");
+
+        // Verify interactions
+        Mockito.verify(registrationDetailsService).getRegistrationDetailsByEmail("user1@example.com");
+        // Verify that the correct user list is returned
+        assertEquals(userDetailsList, result);
+    }
 
 }
+
+
+
+
+
+
+
+//private MockMvc mockMvc;
+//
+//@MockBean
+//private RegistrationDetailsService userService;
+//
+//private RegistrationDetails user;
+//
+//@BeforeEach
+//public void setup() {
+//	RegistrationDetails user= new RegistrationDetails();
+////	user.setId(1);
+//	user.setFirstname("Test User");
+//	user.setEmail("test@example.com");
+//	user.setPassword("password");
+//	user.setBloodGroup("A+");
+//
+//	user.setLastname("B");
+//    }
+//
+//@Test
+//public void registerUserTest() throws Exception {
+//
+//	when(userService.saveRegistrationDetails(any(RegistrationDetails.class))).thenReturn("User registered successfully");
+//	
+//	mockMvc.perform(post("/registerUser")
+//			.contentType(MediaType.APPLICATION_JSON)
+//
+//			.content("{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password\"}"))
+//
+//	.andExpect(status().isOk())
+//	.andExpect(content().string("User registered successfully"));
+//    }
+
